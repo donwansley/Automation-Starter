@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Starter: Build Your First AI Flow</title>
+    <style>
+        :root {
+            --primary-color: #4169E1;
+            --secondary-color: #9370DB;
+            --accent-color: #20B2AA;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --light-gray: #f0f0f0;
+            --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .course-overview {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .module {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .lesson {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .lesson-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .action-steps {
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .action-steps h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .action-steps ul {
+            margin-left: 20px;
+        }
+        
+        .resources {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .resources h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .resources ul {
+            list-style: none;
+        }
+        
+        .resources li {
+            margin-bottom: 10px;
+        }
+        
+        .resources a {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .resources a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .module-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .bonuses {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .bonus-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Button styles */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            h3 {
+                font-size: 1.25rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+        
+        /* PDF Button styles */
+        #pdf-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #pdf-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .pdf-icon {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <button id="pdf-button" onclick="window.print();">
+        <svg class="pdf-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3v4a1 1 0 001 1h4"></path>
+            <path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"></path>
+            <path d="M9 17h6"></path>
+            <path d="M9 13h6"></path>
+        </svg>
+    </button>
+    
+    <div class="container">
+        <header>
+            <h1>Automation Starter: Build Your First AI Flow</h1>
+            <p>A beginner-friendly, soul-aligned mini course designed to help small business owners and creators build and launch their first AI-powered chatbot flow.</p>
+        </header>
+        
+        <section class="course-overview">
+            <h2>Course Overview</h2>
+            <p>This mini course teaches small business owners and creators how to build their first AI-powered chatbot flow, combining conscious design principles, automation strategy, and ready-to-use templates. The course is structured in 3 modules covering automation clarity, building a chatbot flow, and launch strategies. Each lesson includes video content, downloadable resources, and clear action steps to help participants create a functional AI assistant aligned with their brand voice and business needs.</p>
+            <p>By the end of this course, you will have built and launched your first AI flow that truly represents your business and serves your customers in an authentic way.</p>
+        </section>
+        
+        <!-- MODULE 1 -->
+        <section id="module1" class="module">
+            <h2>Module 1: Automation Clarity – What to Build First</h2>
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/5f15cc87-51c7-4a70-beba-10f652abd562" alt="Soul-Aligned Automation" class="module-image">
+            <p>This module helps participants gain clarity on what type of automation to build first, ensuring they choose the most valuable option for their specific business needs.</p>
+            
+            <div class="lesson">
+                <h3>Lesson 1.1: Welcome to Automation Starter</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Orient learners to the course journey and set intentions.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Brief course welcome video (2–3 min)</li>
+                        <li>Course promise: You will launch your first AI flow by the end of this course</li>
+                        <li>Walkthrough of the course structure (3 modules, downloads, templates, community)</li>
+                        <li>Mindset for soulful automation: this isn't about replacing humans—it's about reclaiming your time</li>
+                        <li>Reflective journal prompt: "Where in your business do you feel stuck or overwhelmed?"</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Watch welcome video</li>
+                            <li>Download and review course roadmap PDF</li>
+                            <li>Complete reflection journal prompt</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 1.2: Why Soul-Aligned Automation?</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Understand the philosophy behind using AI and automation with integrity.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video lesson (5–6 min): What "soul-aligned automation" means</li>
+                        <li>Why automation isn't just about efficiency — it's about freeing you to do your most creative, impactful work</li>
+                        <li>Examples of bad vs. good automation (robotic vs. personalized experiences)</li>
+                        <li>Importance of tone, voice, and mission in every automated message</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Watch lesson video</li>
+                            <li>Fill out the "Automation with Integrity" values checklist (PDF)</li>
+                            <li>Optional: Post in the community one business process you'd LOVE to offload</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 1.3: Map Your First Automation</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Choose one business process to automate.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video walkthrough (8–10 min) of the 3 essential starter flows:
+                            <ol>
+                                <li><strong>Booking Assistant</strong> (automates calendar scheduling + intake)</li>
+                                <li><strong>Lead Qualifier</strong> (captures + filters new leads with logic-based questions)</li>
+                                <li><strong>FAQ & Support Bot</strong> (answers top questions 24/7)</li>
+                            </ol>
+                        </li>
+                        <li>How to map a simple workflow with arrows and steps using the provided Flow Map PDF</li>
+                        <li>Decide which one is right for your business <em>right now</em></li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Download the Flow Selector PDF</li>
+                            <li>Complete the flow-mapping exercise (fill in trigger, message, response, and output)</li>
+                            <li>Choose your ONE flow to build in this course</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h4>Module 1 Resources:</h4>
+                <ul>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_sx14-CwzQ-uf5j2bt1Xc_w/automation_starter_course_roadmap.png" target="_blank">Course Roadmap</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_pUObIs9VTCquKsAYgtUzmw/flow_selector_worksheet.png" target="_blank">Flow Selector Worksheet</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_dTq7AxPpR3O7dPuzPn_KYA/automation_with_integrity_checklist.png" target="_blank">Automation with Integrity Checklist</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_ucxlHbmcR2unZATBajr_vA/flow_mapping_worksheet.png" target="_blank">Flow Mapping Worksheet</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- MODULE 2 -->
+        <section id="module2" class="module">
+            <h2>Module 2: Build Your First Chatbot Flow</h2>
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/34e1daf4-24a6-4d76-bee4-575f7d6f2b74" alt="Build Your First Chatbot Flow" class="module-image">
+            <p>In this module, students learn how to define their AI assistant's personality, set up the technical aspects, and implement a functional chatbot for their chosen use case.</p>
+            
+            <div class="lesson">
+                <h3>Lesson 2.1: Meet Your AI Assistant</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Define your chatbot's voice, purpose, and boundaries.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video lesson (6 min): What is an AI assistant and why should it reflect <em>you</em>?</li>
+                        <li>Define your assistant's tone (inspired by your brand)</li>
+                        <li>Write your assistant's purpose statement (1-sentence function)</li>
+                        <li>Persona building: boundaries (what it can and can't do)</li>
+                        <li>Use the Persona Builder Worksheet</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Download and complete the AI Assistant Persona Worksheet</li>
+                            <li>Write your chatbot's purpose + tone</li>
+                            <li>Optional: Post your chatbot name + vibe in the group for feedback</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2.2: Setting Up Your Chatbot</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Use templates to build a functional chatbot.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video walkthrough (10 min): Set up your bot using a drag-and-drop interface or AI assistant (like GPT)</li>
+                        <li>Duplicate provided templates:
+                            <ul>
+                                <li>Booking Assistant Prompt Template</li>
+                                <li>FAQ Bot Prompt Template</li>
+                                <li>Lead Qualifier Template</li>
+                            </ul>
+                        </li>
+                        <li>Replace placeholder text with:
+                            <ul>
+                                <li>Your business name</li>
+                                <li>Scheduling link (Calendly, Acuity, etc.)</li>
+                                <li>Contact preferences (email, phone)</li>
+                            </ul>
+                        </li>
+                        <li>Preview what the conversation flow looks like</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Choose and customize your chatbot template</li>
+                            <li>Use the Starter Prompt Template to test your own input/output</li>
+                            <li>Save your chatbot flow</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2.3: Embed and Share Your Chatbot</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Launch your chatbot for real-world interaction.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video (5 min): Where and how to use your chatbot
+                            <ul>
+                                <li>Embed on website</li>
+                                <li>Share via link in email or Skool</li>
+                                <li>Add to a landing page or PDF guide</li>
+                            </ul>
+                        </li>
+                        <li>Importance of context (who's clicking the link?)</li>
+                        <li>How to test before going live</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Generate chatbot link</li>
+                            <li>Embed it in one place (site, page, linktree, etc.)</li>
+                            <li>Share with 2 friends or colleagues for first impressions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h4>Module 2 Resources:</h4>
+                <ul>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_mUgAsQ5cRZKGLue9VzH3Rg/ai_chatbot_flow_template.png" target="_blank">AI Chatbot Flow Template</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/567d46ea-a9c5-45aa-b6be-f4298b527535" target="_blank">AI Assistant Persona Builder</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_vOWCUazMQbKd-c6uqO4jdg/booking_assistant_prompt_template.png" target="_blank">Booking Assistant Prompt Template</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_TzBHYB_ATUKXaRXK6cLb5Q/faq_bot_prompt_template.png" target="_blank">FAQ Bot Prompt Template</a></li>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/jupyter/tooluse_-MG0JCH2T4eVAWB_kIJ6sA/lead_qualifier_prompt_template.png" target="_blank">Lead Qualifier Prompt Template</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- MODULE 3 -->
+        <section id="module3" class="module">
+            <h2>Module 3: Launch + Learn</h2>
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/ece73c0e-eab3-4fbb-b6a5-bc68d36520ac" alt="Launch + Learn" class="module-image">
+            <p>The final module focuses on testing, refining, and successfully launching the chatbot, with strategies for announcing it and collecting feedback for improvement.</p>
+            
+            <div class="lesson">
+                <h3>Lesson 3.1: Test + Refine</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Run test scenarios and fix common issues.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Video: Common beginner mistakes</li>
+                        <li>Roleplay: How to test your chatbot by pretending to be your customer</li>
+                        <li>What to check: clarity, tone, logic, broken links</li>
+                        <li>How to tweak your prompt or response instructions</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Run 3 test conversations</li>
+                            <li>Update any language that feels stiff or unclear</li>
+                            <li>Use the Checklist to finalize edits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3.2: Launch Your Flow</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Announce your chatbot to your audience.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>Sample email + social post templates</li>
+                        <li>How to introduce AI without scaring people</li>
+                        <li>Ways to make it fun (name your bot, include GIFs or rewards)</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Choose 1-2 platforms to announce (email, Skool, IG, etc.)</li>
+                            <li>Use the Launch Checklist</li>
+                            <li>Post your bot in the community with a "Meet My Assistant!" thread</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3.3: Next Steps + Upgrade Path</h3>
+                <div class="lesson-content">
+                    <p><strong>Objective:</strong> Prepare for scaling your automation.</p>
+                    
+                    <p><strong>Content:</strong></p>
+                    <ul>
+                        <li>What to build next: onboarding flows, sales funnels, voice assistants</li>
+                        <li>Overview of full Gurus AI course ($297 value)</li>
+                        <li>Course invitation with discount code</li>
+                        <li>Self-reflection prompt: "How has automation already changed my energy, time, and creativity?"</li>
+                    </ul>
+                    
+                    <div class="action-steps">
+                        <h4>Action Steps:</h4>
+                        <ul>
+                            <li>Complete the Reflection Prompt</li>
+                            <li>Save the Upgrade Invitation PDF</li>
+                            <li>Celebrate your completed first AI flow!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resources">
+                <h4>Module 3 Resources:</h4>
+                <ul>
+                    <li><a href="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/05006c48-1d0c-496f-badc-0716cddb9d95" target="_blank">Chatbot Launch Checklist</a></li>
+                    <li><a href="#" target="_blank">Email Announcement Template</a></li>
+                    <li><a href="#" target="_blank">Social Media Announcement Template</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- BONUSES -->
+        <section id="bonuses" class="bonuses">
+            <h2>Bonuses</h2>
+            
+            <div class="bonus-item">
+                <h3>Certificate of Completion</h3>
+                <p>Receive a professional certificate when you complete all modules and action steps. Perfect for sharing your achievement and new skills on LinkedIn or your portfolio.</p>
+                <a href="https://cdn1.genspark.ai/user-upload-image/22_generated/fa18556a-5eca-469e-a0d2-5a48c7e4cb7f" target="_blank" class="cta-button">View Certificate</a>
+            </div>
+            
+            <div class="bonus-item">
+                <h3>Guided Breathwork for Building in Flow (Audio)</h3>
+                <p>A specially created 5-minute meditation to center yourself before designing or working on your AI flow. Use this audio guide to align your energy and intention before creating your automation.</p>
+                <audio controls style="width: 100%; margin-top: 10px;">
+                    <source src="https://cdn1.genspark.ai/user-upload-image/1/1bb240e6-5311-4d57-9110-6b7c7b23f918.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            
+            <div class="bonus-item">
+                <h3>$297 Course Upgrade Invite</h3>
+                <p>Exclusive discount to the complete Gurus AI course, which includes advanced AI automation strategies, more complex flows, and personalized feedback on your implementations.</p>
+                <a href="#" class="cta-button">Get Discount Code</a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2025 Automation Starter Mini Course. All rights reserved.</p>
+            <p>Created with care for the Skool community.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // You can add JavaScript functionality here if needed
+    </script>
+</body>
+</html>
